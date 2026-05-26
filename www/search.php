@@ -4,7 +4,7 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'])) {
     echo $_SESSION['voornaam'] . " " . $_SESSION['achternaam'];
 }
 
-//test
+
 $time = time();
 echo date('d-m-Y H:i:s', $time);
 
