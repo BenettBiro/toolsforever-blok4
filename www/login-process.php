@@ -11,23 +11,24 @@ if (isset($_POST['submit'])) {
             $sql = "SELECT * FROM users WHERE email='$emailForm'";
             $result = mysqli_query($conn, $sql);
 
-            //als de email bestaat dan is het resultaat groter dan 0
+
             if (mysqli_num_rows($result) > 0) {
 
-                //resultaat gevonden? Dan maken we een user-array $dbuser
+
                 $dbuser = mysqli_fetch_assoc($result);
 
                 if ($dbuser['password'] == $passwordForm) {
 
                     session_start();
-                    $_SESSION['user_id']    = $dbuser['id'];
-                    $_SESSION['email']      = $dbuser['email'];
-                    $_SESSION['firstname']  = $dbuser['firstname'];
-                    $_SESSION['lastname']   = $dbuser['lastname'];
-                    $_SESSION['role']       = $dbuser['role'];
+                    $_SESSION['user_id'] = $dbuser['id'];
+                    $_SESSION['email'] = $dbuser['email'];
+                    $_SESSION['firstname'] = $dbuser['firstname'];
+                    $_SESSION['lastname'] = $dbuser['lastname'];
+                    $_SESSION['role'] = $dbuser['role'];
 
-                    // echo "You are logged in";
+
                     header("Location: dashboard.php");
+
                     exit;
                 } else {
                     include 'header.php';

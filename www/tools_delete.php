@@ -6,7 +6,7 @@ if($_SERVER["REQUEST_METHOD"] != "GET"){
 }
 
 
-if(    isset($_GET['id'])     ){
+if(isset($_GET['id'])){
 
     require 'database.php';
 
@@ -16,5 +16,5 @@ if(    isset($_GET['id'])     ){
 
     mysqli_query($conn, $sql);
 
-    header("location: tools_index.php");
+    header("location: tool_index.php");
 }

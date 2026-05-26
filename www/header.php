@@ -32,7 +32,7 @@
                     <li class="dropdown">
                         <a href="">Gereedschap</a>
                         <div class="dropdown-content">
-                            <a href="tools_index.php">Bekijken</a>
+                            <a href="tool_index.php">Bekijken</a>
                             <a href="tools_create.php">Toevoegen</a>
                         </div>
                     </li>

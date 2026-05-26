@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'] )){
+if (isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'])) {
     echo $_SESSION['voornaam'] . " " . $_SESSION['achternaam'];
 }
 
@@ -8,8 +8,8 @@ if(isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'] )){
 $time = time();
 echo date('d-m-Y H:i:s', $time);
 
-if(isset($_GET['search_submit'] )){
-    if(!empty($_GET['search'])){
+if (isset($_GET['search_submit'])) {
+    if (!empty($_GET['search'])) {
         require 'database.php';
         $zoekterm = $_GET['search'];
         $sql = "SELECT * FROM tools WHERE name LIKE '$zoekterm'";
@@ -27,7 +27,7 @@ echo $aantal
 
 
 
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +46,7 @@ echo $aantal
     </div>
     <div class="container">
         <h1>Resultaten</h1>
-        <?php foreach ($tools as $tool) : ?>
+        <?php foreach ($tools as $tool): ?>
         <?php endforeach; ?>
     </div>
 </body>

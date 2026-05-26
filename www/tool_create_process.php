@@ -13,7 +13,7 @@ if ($_SESSION['role'] != 'administrator') {
     exit;
 }
 
-//check method
+
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     echo "You are not allowed to view this page";
     exit;

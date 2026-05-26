@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit;
 }
 
-//check if all fields are filled in
 if (empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['email']) || empty($_POST['role']) || empty($_POST['address']) || empty($_POST['city']) || empty($_POST['backgroundColor']) || empty($_POST['font'])) {
     echo "Please fill in all fields";
     exit;
