@@ -14,8 +14,8 @@ if ($_SESSION['role'] != 'administrator') {
 require 'database.php';
 
 $sql = "SELECT * FROM users";
-$result = mysqli_query($conn, $sql);
-$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$stmt = $conn->query($sql);
+$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 require 'header.php';
 ?>
@@ -34,17 +34,15 @@ require 'header.php';
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $user) : ?>
+                <?php foreach ($users as $user): ?>
                     <tr>
-                        <td><?php echo $user['firstname'] ?></td>
-                        <td><?php echo $user['lastname'] ?></td>
-                        <td><?php echo $user['email'] ?></td>
-                        <td><?php echo $user['role'] ?></td>
+                        <td><?php echo htmlspecialchars($user['firstname']) ?></td>
+
+                        <td><?php echo htmlspecialchars($user['email']) ?></td>
+                        <td><?php echo htmlspecialchars($user['role']) ?></td>
                         <td>
                             <a href="users_detail.php?id=<?php echo $user['id'] ?>">Bekijk</a>
-                            Wijzig
-                      
-                            <!-- <a href="users_edit.php?id=<?php echo $user['id'] ?>">Wijzig</a>  -->
+                            <a href="users_update.php?id=<?php echo $user['id'] ?>">Wijzig</a>
                             <a href="users_delete.php?id=<?php echo $user['id'] ?>">Verwijder</a>
                         </td>
                     </tr>

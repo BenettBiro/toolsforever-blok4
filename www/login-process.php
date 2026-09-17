@@ -1,23 +1,20 @@
-<?php
+<?php require 'database.php';
 
 if (isset($_POST['submit'])) {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
             $emailForm = $_POST['email'];
             $passwordForm = $_POST['password'];
+         
+       
 
-            $conn = mysqli_connect('mariadb', 'root', 'password', 'tools4ever');
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+            $stmt->execute(['email' => $emailForm]);
+            $dbuser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $sql = "SELECT * FROM users WHERE email='$emailForm'";
-            $result = mysqli_query($conn, $sql);
+            if ($dbuser) {
 
-
-            if (mysqli_num_rows($result) > 0) {
-
-
-                $dbuser = mysqli_fetch_assoc($result);
-
-                if ($dbuser['password'] == $passwordForm) {
+                if (password_verify($passwordForm, $dbuser['password'])) {
 
                     session_start();
                     $_SESSION['user_id'] = $dbuser['id'];
@@ -26,9 +23,7 @@ if (isset($_POST['submit'])) {
                     $_SESSION['lastname'] = $dbuser['lastname'];
                     $_SESSION['role'] = $dbuser['role'];
 
-
                     header("Location: dashboard.php");
-
                     exit;
                 } else {
                     include 'header.php';

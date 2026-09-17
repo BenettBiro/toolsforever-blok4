@@ -3,12 +3,18 @@ session_start();
 
 require 'database.php';
 
-if (isset($_GET['id'])) {
-    $tool_id = $_GET['id'];
-    $sql = "SELECT * FROM tools WHERE tool_id = $tool_id";
-    $result = mysqli_query($conn, $sql);
-    $tool = mysqli_fetch_assoc($result);
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    // id ontbreekt of is geen getal — stuur terug naar de lijst
+    header('Location: index.php');
+    exit;
 }
+
+$id = $_GET['id'];
+$stmt = $conn->prepare("SELECT * FROM tools WHERE tool_id = :id");
+$stmt->execute(['id' => $id]);
+$tool = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 require 'header.php';
 ?>
 

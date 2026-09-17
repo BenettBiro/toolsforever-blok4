@@ -16,8 +16,8 @@ if ($_SESSION['role'] != 'administrator') {
 require 'database.php';
 
 $sql = "SELECT * FROM tools";
-$result = mysqli_query($conn, $sql);
-$tools = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$stmt = $conn->query($sql);
+$tools = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 require 'header.php';
 ?>
@@ -44,7 +44,7 @@ require 'header.php';
                         <a href="tools_detail.php?id=<?php echo $tool['tool_id'] ?>">Bekijk</a>
                         Wijzig
                         Verwijder
-                        <!-- <a href="tools_edit.php?id=<?php echo $tool['tool_id'] ?>">Wijzig</a> -->
+                       <a href="tool_update.php?id=<?= $tool['tool_id'] ?>">Wijzig</a>
                         <a href="tools_delete.php?id=<?php echo $tool['tool_id'] ?>"
                         onclick="return confirm('weet je het zeker dat je deze tool wilt verwijderen?')"
                         >

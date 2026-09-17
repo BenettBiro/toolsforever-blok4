@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-if ($_SESSION['role'] != 'administrator') {
+if (htmlspecialchars($_SESSION['role']) != 'administrator') {
     echo "You are not allowed to view this page, please login as admin";
     exit;
 }
@@ -20,19 +20,23 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 }
 require 'database.php';
 
-$name = $_POST['name'];
-$category = $_POST['category'];
-$price = $_POST['price'];
-$brand = $_POST['brand'];
-$image = $_POST['image'];
+$name     = htmlspecialchars($_POST['name']);
+$category = htmlspecialchars($_POST['category']);
+$price    = htmlspecialchars($_POST['price']);
+$brand    = htmlspecialchars($_POST['brand']);
+$image    = htmlspecialchars($_POST['image']);
 
 
-$sql = "INSERT INTO tools (tool_name, tool_category, tool_price, tool_brand, tool_image) VALUES ('$name', '$category', '$price', '$brand', '$image')";
-$result = mysqli_query($conn, $sql);
 
-if ($result) {
+$stmt = $conn->prepare("INSERT INTO tools (tool_name, tool_category, tool_price, tool_brand,tool_image) VALUES (:tool_name, :tool_category, :tool_price, :tool_brand, :tool_image)");
+
+$stmt->execute(['tool_name' => $name, 'tool_category' => $category, 'tool_price' => $price, 'tool_brand' => $brand, 'tool_image' => $image]);
+
+
+if ($stmt) {
     header("Location: tool_index.php");
     exit;
 }
 
 echo "Something went wrong";
+?>

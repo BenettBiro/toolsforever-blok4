@@ -28,7 +28,7 @@ if (empty($_SESSION['user_id'])) {
 
 <body>
     <h1>Gebruiker aanmaken</h1>
-    <form action="user_create_process.php" method="post">
+    <form action="user_add_process.php" method="post">
         <div class="form-group">
             <label for="firstname">Voornaam</label>
             <input type="text" name="firstname" id="firstname" placeholder="Jan">

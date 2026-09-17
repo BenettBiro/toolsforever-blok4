@@ -9,23 +9,25 @@ if (isset($_GET['id'])) {
 
     require 'database.php';
 
-    $id =  $_GET["id"]; 
+    $id = $_GET["id"];
 
-    mysqli_begin_transaction($conn);
+    $conn->beginTransaction();
 
     try {
-       
-        mysqli_query($conn, "DELETE FROM user_settings WHERE user_id = $id");
 
-      
-        mysqli_query($conn, "DELETE FROM users WHERE id = $id");
+        $stmt = $conn->prepare("DELETE FROM user_settings WHERE user_id = :id");
+        $stmt->execute(['id' => $id]);
 
-        mysqli_commit($conn);
+        $stmt = $conn->prepare("DELETE FROM users WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+
+        $conn->commit();
 
     } catch (Exception $e) {
-        mysqli_rollback($conn);
-        die("Er ging iets fout: " . $e->getMessage());
+        $conn->rollBack();
+        die("Er ging iets fout: " . htmlspecialchars($e->getMessage()));
     }
 
-    header("location: users_index.php");
+    header("Location: users_index.php");
+    exit;
 }

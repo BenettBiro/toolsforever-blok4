@@ -4,30 +4,30 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['achternaam'])) {
     echo $_SESSION['voornaam'] . " " . $_SESSION['achternaam'];
 }
 
+require 'database.php';
 
 $time = time();
 echo date('d-m-Y H:i:s', $time);
 
 if (isset($_GET['search_submit'])) {
     if (!empty($_GET['search'])) {
-        require 'database.php';
         $zoekterm = $_GET['search'];
-        $sql = "SELECT * FROM tools WHERE name LIKE '$zoekterm'";
-        $result = mysqli_query($conn, $sql);
-        $tools = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $stmt = $conn->prepare("SELECT * FROM tools WHERE name LIKE :zoekterm");
+        $stmt->execute(['zoekterm' => '%' . $zoekterm . '%']);
+        $tools = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 
 
-$sql = "SELECT COUNT(*) AS aantal FROM tools";
-$result = mysqli_query($conn, $sql);
-$resultaat_array = mysqli_fetch_assoc($result);
+$stmt_count = $conn->prepare("SELECT COUNT(*) AS aantal FROM tools");
+$stmt_count->execute();
+$resultaat_array = $stmt_count->fetch(PDO::FETCH_ASSOC);
 $aantal = $resultaat_array['aantal'];
-echo $aantal
+echo $aantal;
 
 
 
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
