@@ -41,7 +41,7 @@ $stmt = $conn->prepare("INSERT INTO users (email, password, firstname, lastname,
 $result = $stmt->execute(['email' => $email, 'password' => $password, 'firstname' => $firstname, 'lastname' => $lastname, 'role' => $role, 'address' => $address, 'city' => $city, 'is_active' => $is_active]);
 
 if ($result) {
-    $user_id = $conn->lastInsertId(); 
+    $user_id = $conn->lastInsertId();
     $backgroundColor = $_POST['backgroundColor'];
     $font = $_POST['font'];
     $stmt2 = $conn->prepare("INSERT INTO user_settings (user_id, backgroundColor, font) VALUES (:user_id, :backgroundColor, :font)");

@@ -5,17 +5,15 @@ if ($_SERVER["REQUEST_METHOD"] != "GET") {
     exit;
 }
 
-
 if (isset($_GET['id'])) {
 
     require 'database.php';
 
     $id = $_GET["id"];
 
-    $sql = "DELETE FROM tools WHERE tool_id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt = $conn->prepare("UPDATE tools SET deleted_at = NOW() WHERE tool_id = :id");
+    $stmt->execute(['id' => $id]);
 
-    header("location: tool_index.php");
+    header("Location: tool_index.php");
+    exit();
 }

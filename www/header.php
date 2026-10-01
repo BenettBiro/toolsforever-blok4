@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obuh Tools4ever</title>
-    <link href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette' rel='stylesheet' type='text/css'>
+    <link
+        href='https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette'
+        rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -19,8 +21,13 @@
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="brands_index.php">Merken</a></li>
-                <li><a href="">Winkelmand</a></li>
-                <?php if (isset($_SESSION['user_id'])) : ?>
+                <li>
+                    <a href="cart.php">Winkelmand</a>
+                    <span class="cart-count">
+                        <?php echo $_SESSION['cart_count'] ?? 0 ?>
+                    </span>
+                </li>
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a href="dashboard.php">Dashboard</a></li>
                     <li class="dropdown">
                         <a href="">Gebruikers</a>
@@ -37,7 +44,7 @@
                         </div>
                     </li>
                     <li><a href="logout.php" class="btn btn-danger">Uitloggen</a></li>
-                <?php else : ?>
+                <?php else: ?>
                     <li><a href="login.php" class="btn btn-success">Inloggen</a></li>
                 <?php endif; ?>
             </ul>

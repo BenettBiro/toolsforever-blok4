@@ -33,7 +33,7 @@ require 'header.php';
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($tools as $tool) : ?>
+            <?php foreach ($tools as $tool): ?>
                 <tr>
                     <td><?php echo $tool['tool_name'] ?></td>
                     <td><?php echo $tool['tool_category'] ?></td>
@@ -42,14 +42,17 @@ require 'header.php';
                     <td>
 
                         <a href="tools_detail.php?id=<?php echo $tool['tool_id'] ?>">Bekijk</a>
-                        Wijzig
-                        Verwijder
-                       <a href="tool_update.php?id=<?= $tool['tool_id'] ?>">Wijzig</a>
-                        <a href="tools_delete.php?id=<?php echo $tool['tool_id'] ?>"
-                        onclick="return confirm('weet je het zeker dat je deze tool wilt verwijderen?')"
-                        >
-                        Verwijder
-                    </a> 
+                        
+                        
+                        <a href="tool_update.php?id=<?= $tool['tool_id'] ?>">Wijzig</a>
+                    <td>
+                        <a href="tools_delete.php?id=<?= urlencode($tool['tool_id']) ?>"
+                            onclick="return confirm('Weet je zeker dat je deze tool wilt verwijderen?');">
+                            Verwijderen
+                        </a>
+                    </td>
+                
+                    </a>
                     </td>
                 </tr>
             <?php endforeach; ?>

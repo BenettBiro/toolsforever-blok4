@@ -48,7 +48,7 @@ if (empty($_SESSION['user_id'])) {
         <div class="form-group">
             <label for="role">Rol</label>
             <select name="role" id="role">
-                <option value="administrator">Admin</option>
+                <option value="administrator">administrator</option>
                 <option value="teacher">Docent</option>
                 <option value="student">Leerling</option>
             </select>
